@@ -55,5 +55,25 @@ public class Matematica {
         return C;
     }
 	
+	public static byte[] somaVetorComXor(byte[] A, byte[] B) {
+
+        int aColumns = A.length;
+        int bColumns = B.length;
+
+        if (aColumns != bColumns) {
+            throw new IllegalArgumentException("A:Columns: " + aColumns + " did not match B:Columns " + bColumns + ".");
+        }
+
+        byte[] C = new byte[bColumns];
+        for (int j = 0; j < bColumns; j++) {
+            C[j] = 0;
+        }
+
+        for (int j = 0; j < bColumns; j++)
+        	C[j] = (byte) ((A[j] * B[j])%2);
+
+        return C;
+    }
+	
 	
 }

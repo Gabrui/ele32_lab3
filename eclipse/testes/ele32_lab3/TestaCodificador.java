@@ -19,8 +19,7 @@ public class TestaCodificador {
 		assertEquals(4, saida.length);
 		assertEquals(7, saida[0].length);
 		for (int linha=0; linha<esperado.length; linha++)
-			for (int coluna=0; coluna<esperado[0].length; coluna++)
-				assertEquals(esperado[linha][coluna], saida[linha][coluna]);
+			assertArrayEquals(esperado[linha], saida[linha]);
 	}
 	
 	

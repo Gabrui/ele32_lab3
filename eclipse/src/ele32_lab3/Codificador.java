@@ -15,7 +15,6 @@ public class Codificador {
 	public static byte[][] gerarG(int quantInformacao, int quantTotal) {
 		byte[][] resposta = new byte[quantInformacao][quantTotal];
 		
-		// Gera a identidade
 		for (int linha=0; linha<quantInformacao; linha++) {
 			for (int coluna=0; coluna<quantTotal; coluna++) {
 				// Identidade
