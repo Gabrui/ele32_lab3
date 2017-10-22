@@ -70,7 +70,7 @@ public class Matematica {
         }
 
         for (int j = 0; j < bColumns; j++)
-        	C[j] = (byte) ((A[j] * B[j])%2);
+        	C[j] = (byte) ((A[j] + B[j])%2);
 
         return C;
     }

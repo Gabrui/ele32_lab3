@@ -57,4 +57,39 @@ public class Decodificador {
 		}
 		return resposta;
 	}
+	
+	public static byte[] decodificar1C(byte[] entrada, int quantInformacao) {
+		int quantTotal = entrada.length;
+		int quantParidade = quantTotal - quantInformacao;
+		byte[] resposta = new byte[quantInformacao];
+		byte[] paridade = new byte[quantParidade];
+		
+		for (int i=0; i<quantInformacao; i++)
+			resposta[i] = entrada[i];
+		
+		for (int i=0; i<quantParidade; i++)
+			paridade[i] = entrada[i+quantInformacao];
+		
+		byte[] sindrome = Matematica.somaVetorComXor(paridade, Codificador.paridade1C(resposta, quantParidade));
+		
+		int posErroMascarada = 0;
+		for (int i=0; i<quantParidade; i++)
+			if (sindrome[i] != 0)
+				posErroMascarada += 1 << (quantParidade - i - 1);
+		if (posErroMascarada == 0)
+			return resposta;
+		
+		int quantPosExcluidas = 0;
+		for (int i=quantParidade-1; i>=0; i--, quantPosExcluidas++) {
+			int mascara = (1<<i);
+			if (posErroMascarada > mascara)
+				break;
+			else if (posErroMascarada == mascara)
+				return resposta;
+		}
+		
+		int pos = quantTotal - posErroMascarada - quantPosExcluidas;
+		resposta[pos] = (byte) ((resposta[pos] + 1)%2);
+		return resposta;
+	}
 }

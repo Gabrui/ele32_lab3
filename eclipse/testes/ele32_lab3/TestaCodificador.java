@@ -47,5 +47,41 @@ public class TestaCodificador {
 		
 		assertArrayEquals(esperado, Codificador.codifica4e7(entrada));
 	}
+	
+
+	@Test
+	public void testaCodificacao4por7Trivial1C() {
+		byte[] entrada = {0, 0, 0, 0};
+		byte[] esperado = {0, 0, 0, 0, 0, 0, 0};
+		
+		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 7));
+	}
+	
+	@Test
+	public void testaCodificacao4por71C() {
+		byte[] entrada = {1, 0, 0, 0};
+		byte[] esperado = {1, 0, 0, 0, 1, 1, 1};
+		
+		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 7));
+	}
+	
+
+	@Test
+	public void testaCodificacao4por7Total1C() {
+		byte[] entrada = {1, 0, 1, 0};
+		byte[] esperado = {1, 0, 1, 0, 0, 1, 0};
+		
+		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 7));
+	}
+	
+
+
+	@Test
+	public void testaCodificacao4por7Total1CExtra() {
+		byte[] entrada = {1, 1, 0, 0};
+		byte[] esperado = {1, 1, 0, 0, 0, 0, 1};
+		
+		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 7));
+	}
 
 }
