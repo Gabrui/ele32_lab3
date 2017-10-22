@@ -59,10 +59,23 @@ public class TestaDecodificador {
 		byte[] entrada = {0, 1, 0, 0, 0, 0, 1};
 		byte[] esperada = {1, 1, 0, 0};
 		assertArrayEquals(esperada, Decodificador.decodificar1C(entrada, 4));
-		for (int i=1; i<7; i++) {
+		for (int i=1; i<entrada.length; i++) {
 			entrada[i] = (byte) ((entrada[i]+1)%2);
 			entrada[i-1] = (byte) ((entrada[i-1]+1)%2);
 			assertArrayEquals(esperada, Decodificador.decodificar1C(entrada, 4));
+		}
+	}
+	
+	
+	@Test
+	public void testaDecodifica1CQuandoTemErroSimplesConsertaGrande() {
+		byte[] entrada = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0};
+		byte[] esperada = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+		assertArrayEquals(esperada, Decodificador.decodificar1C(entrada, 11));
+		for (int i=1; i<entrada.length; i++) {
+			entrada[i] = (byte) ((entrada[i]+1)%2);
+			entrada[i-1] = (byte) ((entrada[i-1]+1)%2);
+			assertArrayEquals(esperada, Decodificador.decodificar1C(entrada, 11));
 		}
 	}
 

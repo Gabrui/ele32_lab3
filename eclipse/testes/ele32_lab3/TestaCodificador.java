@@ -75,13 +75,36 @@ public class TestaCodificador {
 	}
 	
 
-
 	@Test
 	public void testaCodificacao4por7Total1CExtra() {
 		byte[] entrada = {1, 1, 0, 0};
 		byte[] esperado = {1, 1, 0, 0, 0, 0, 1};
 		
 		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 7));
+	}
+
+	@Test
+	public void testaCodificacao11por15Trivial() {
+		byte[] entrada = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		byte[] esperado = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		
+		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 15));
+	}
+
+	@Test
+	public void testaCodificacao11por15Simples() {
+		byte[] entrada = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		byte[] esperado = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1};
+		
+		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 15));
+	}
+
+	@Test
+	public void testaCodificacao11por15Simples2() {
+		byte[] entrada =  {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+		byte[] esperado = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0};
+		
+		assertArrayEquals(esperado, Codificador.codifica1C(entrada, 15));
 	}
 
 }
