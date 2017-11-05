@@ -19,7 +19,12 @@
 class VetorBits {
 public:
     VetorBits(int tamanho);
+    VetorBits(int tamanho, unsigned long data);
     bit getBit(int posicao);
+    /**
+     * 
+     * @param posicao A partir de zero
+     */
     void setBit(int posicao);
     VetorBits* xorBits(VetorBits* outro);
     unsigned int pesoHamming();
@@ -31,7 +36,8 @@ public:
     char* imprimir();
     VetorBits* clonar();
 private:
-
+    int tamanho;
+    unsigned long int data;
 };
 
 #endif /* VETORBITS_H */

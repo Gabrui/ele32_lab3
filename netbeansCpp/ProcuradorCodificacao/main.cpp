@@ -28,8 +28,13 @@ int main(int argc, char** argv) {
     int distMin;
     list<VetorBits> meusVetores;
     VetorBits* atual = new VetorBits(tam);
+    char* bufferImpressao;
     
+    atual->setBit(tam);
     atual->decrementar();
+    bufferImpressao = atual->imprimir();
+    puts(bufferImpressao);
+    free(bufferImpressao);
     meusVetores.push_back(atual->clonar());
     
     while(!atual->isZero()) {
@@ -48,6 +53,12 @@ int main(int argc, char** argv) {
         if (distante)
             meusVetores.push_back(atual->clonar());
         atual->decrementar();
+    }
+    
+    for(VetorBits* i : meusVetores) {
+        bufferImpressao = i->imprimir();
+        puts(bufferImpressao);
+        free(bufferImpressao);
     }
     
     return 0;
