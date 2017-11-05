@@ -40,6 +40,9 @@ int main(int argc, char** argv) {
     while(!atual->isZero()) {
         bool distante = true;
         list<VetorBits*>::iterator listado;
+        bufferImpressao = atual->imprimir();
+        puts(bufferImpressao);
+        free(bufferImpressao);
         if (atual->pesoHamming() < distMin) {
             atual->decrementar();
             continue;
@@ -57,12 +60,14 @@ int main(int argc, char** argv) {
         atual->decrementar();
     }
     
+    printf("ELEMENTOS ENCONTRADOS:");
     for(auto const &i : meusVetores) {
         bufferImpressao = ((VetorBits*)i)->imprimir();
         puts(bufferImpressao);
         free(bufferImpressao);
     }
     printf("Final! Total de %d elementos, tamanho %d", quant, atual->getTamanho());
+    getchar();
     return 0;
 }
 
