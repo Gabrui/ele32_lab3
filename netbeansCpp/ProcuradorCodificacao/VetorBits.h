@@ -35,6 +35,7 @@ public:
     bool ehIgual(VetorBits* outro);
     char* imprimir();
     VetorBits* clonar();
+    int getTamanho();
 private:
     int tamanho;
     unsigned long int data;

@@ -11,6 +11,7 @@
  * Created on 5 de Novembro de 2017, 15:57
  */
 
+#include <cstdio>
 #include <cstdlib>
 #include <list>
 
@@ -25,42 +26,43 @@ using namespace std;
  */
 int main(int argc, char** argv) {
     int tam = 8;
-    int distMin;
-    list<VetorBits> meusVetores;
+    int distMin = 3;
+    int quant = 1;
+    list<VetorBits*> meusVetores;
     VetorBits* atual = new VetorBits(tam);
     char* bufferImpressao;
     
+    printf("Inicio\n");
     atual->setBit(tam);
     atual->decrementar();
-    bufferImpressao = atual->imprimir();
-    puts(bufferImpressao);
-    free(bufferImpressao);
     meusVetores.push_back(atual->clonar());
     
     while(!atual->isZero()) {
         bool distante = true;
-        list<VetorBits>::iterator listado;
+        list<VetorBits*>::iterator listado;
         if (atual->pesoHamming() < distMin) {
             atual->decrementar();
             continue;
         }
-        for( listado = meusVetores.begin(); listado != meusVetores.end(); ++listado) {
-            if (atual->distanciaHamming(listado) < distMin) {
+        for(listado = meusVetores.begin(); listado != meusVetores.end(); ++listado) {
+            if (((VetorBits*)(*listado))->distanciaHamming(atual) < distMin) {
                 distante = false;
                 break;
             }
         }
-        if (distante)
+        if (distante) {
             meusVetores.push_back(atual->clonar());
+            quant++;
+        }
         atual->decrementar();
     }
     
-    for(VetorBits* i : meusVetores) {
-        bufferImpressao = i->imprimir();
+    for(auto const &i : meusVetores) {
+        bufferImpressao = ((VetorBits*)i)->imprimir();
         puts(bufferImpressao);
         free(bufferImpressao);
     }
-    
+    printf("Final! Total de %d elementos, tamanho %d", quant, atual->getTamanho());
     return 0;
 }
 

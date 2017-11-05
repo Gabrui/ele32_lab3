@@ -17,7 +17,8 @@
 #include "VetorBits.h"
 
 VetorBits::VetorBits(int tamanho) {
-    VetorBits(tamanho, 0);
+    this->tamanho = tamanho;
+    this->data = 0;
 }
 
 VetorBits::VetorBits(int tamanho, unsigned long data) {
@@ -25,12 +26,8 @@ VetorBits::VetorBits(int tamanho, unsigned long data) {
     this->data = data;
 }
 
-
-
 VetorBits* VetorBits::clonar() {
-    VetorBits* clone = new VetorBits(this->tamanho);
-    clone->data = this->data;
-    return clone;
+    return new VetorBits(this->tamanho, this->data);
 }
 
 void VetorBits::decrementar() {
@@ -38,7 +35,7 @@ void VetorBits::decrementar() {
 }
 
 unsigned int VetorBits::distanciaHamming(VetorBits* outro) {
-    return this->pesoHamming(this->data^outro->data);
+    return __builtin_popcount(this->data^outro->data);
 }
 
 bool VetorBits::ehIgual(VetorBits* outro) {
@@ -50,10 +47,10 @@ unsigned char VetorBits::getBit(int posicao) {
 }
 
 char* VetorBits::imprimir() {
-    char* impressao = malloc(tamanho+1);
-    impressao[tamanho] = 0;
-    for (int i=tamanho-1; i>=0; i--)
-        impressao[0] = this->getBit(i)? '1' : '0';
+    char* impressao = (char*) malloc(tamanho+1);
+    impressao[tamanho] = '\0';
+    for (int i=0; i<tamanho; i++)
+        impressao[tamanho-i-1] = this->getBit(i)? '1' : '0';
     return impressao;
 }
 
@@ -77,3 +74,8 @@ void VetorBits::setBit(int posicao) {
 VetorBits* VetorBits::xorBits(VetorBits* outro) {
     return new VetorBits(this->tamanho, this->data^outro->data);
 }
+
+int VetorBits::getTamanho() {
+    return this->tamanho;
+}
+
